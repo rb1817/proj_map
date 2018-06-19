@@ -1,13 +1,31 @@
-<div id="map" style="width:100%;height:350px;"></div>
 
+<p id="demo">Click the button to get your position.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<div id="mapholder"></div>
+<div id="map" style="width:400px;height:400px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ff884f95ced186aa1986160f9d24f17"></script>
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new daum.maps.LatLng( position.coords.latitude, position.coords.longitude), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new daum.maps.Map(mapContainer, mapOption); 
+    var map = new daum.maps.Map(mapContainer, mapOption);
+}
+
 </script>
